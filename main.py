@@ -16,45 +16,48 @@ args = parser.parse_args()
 
 
 def sumsize(sizes):
-    factors = [j[0].lower() if isinstance(j, list) else None for j in [re.findall(r"[K|M|G|T|P]?i?B", i, re.IGNORECASE) for i in sizes]]
-    sizes = [float(j[0]) if isinstance(j, list) else 0.0 for j in [re.findall(r"[0-9]+\.?[0-9]*", i) for i in sizes]]
-    realSizes = []
+    s = 0
 
-    for i, j in enumerate(sizes):
-        factor = factors[i]
-        if factor is None:
-            continue
+    pf = re.compile(r"[K|M|G|T|P]?i?B", re.IGNORECASE)
+    ps = re.compile(r"[0-9]+\.?[0-9]*")
+
+    for i in sizes:
+        _factors = pf.findall(i)
+        factor = _factors[0].lower() if isinstance(_factors, list) else "B"
+
+        _sizes = ps.findall(i)
+        size = float(_sizes[0]) if isinstance(_sizes, list) else 0.0
+
         m = 1
-
         c = 1024 if "i" in factor else 1000
         for k, w in enumerate(UNITS):
             if w in factor:
                 m = c ** (k + 1)
+        
+        s += size * m
 
-        realSizes.append(j * m)
-
-    return sum(realSizes)
+    return s
 
 
-def formatsize(size, n=2, I=True):
-    c = 1024 if I else 1000
+def formatsize(size, F=2, B=False):
+    c = 1000 if B else 1024
     for i, j in reversed(list(enumerate(UNITS))):
         m = size / (c ** (i + 1))
         if m > 1:
-            f = f"%.{n}f" % m
-            return f"{ f }{ j.upper() }{ 'i' if I else '' }B"
+            f = f"%.{F}f" % m
+            return f"{ f }{ j.upper() }{ '' if B else 'i' }B"
     return f"{ size }B"
 
 
 stdinLines = stdin.readlines()
 size = sumsize(stdinLines)
 
-useB = not args.useb
+useB = args.useb
 
 figure = 2
 if args.figure is not None:
     figure = args.figure 
 
-f = formatsize(size, n=figure, I=useB)
+f = formatsize(size, F=figure, B=useB)
 
 print(f)
