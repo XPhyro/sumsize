@@ -9,7 +9,7 @@ import re
 UNITS = [ "k", "m", "g", "t", "p" ]
 
 parser = argparse.ArgumentParser(description="Sum sizes.")
-parser.add_argument("-b", "--noib", help="use B instead of iB", action="store_true")
+parser.add_argument("-b", "--useb", help="use B instead of iB", action="store_true")
 parser.add_argument("-f", "--figure", help="significant figure count after the dot", type=int)
 
 args = parser.parse_args()
@@ -49,12 +49,12 @@ def formatsize(size, n=2, I=True):
 stdinLines = stdin.readlines()
 size = sumsize(stdinLines)
 
-iB = not args.noib
+useB = not args.useb
 
-fig = 2
+figure = 2
 if args.figure is not None:
-    fig = args.figure 
+    figure = args.figure 
 
-f = formatsize(size, n=fig, I=iB)
+f = formatsize(size, n=figure, I=useB)
 
 print(f)
