@@ -1,4 +1,4 @@
-# Summary
+# sumsize
 A command-line utility that sums the given sizes. It can read from both stdin and a file. To use it effectively, add it to your path so that you can execute it anywhere.
 
 Execute `sumsize -h` to get more information:
