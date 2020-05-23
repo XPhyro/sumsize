@@ -22,6 +22,8 @@ def sumsize(sizes):
 
     for i, j in enumerate(sizes):
         factor = factors[i]
+        if factor is None:
+            continue
         m = 1
 
         c = 1024 if "i" in factor else 1000
