@@ -66,35 +66,33 @@ def sumsize(sizes):
     return s
 
 
-def formatsize(size, F=2, B=False, U=False):
+def formatsize(size, fig=2, useb=False, unitless=False):
     size = int(size)
-    if U:
+    if unitless:
         return str(size)
 
-    c = 1000 if B else 1024
+    c = 1000 if useb else 1024
     for i, j in reversed(list(enumerate(UNITS))):
         m = size / (c ** (i + 1))
         if m > 1:
-            f = f"%.{F}f" % m
-            return f"{ f }{ j.upper() }{ '' if B else 'i' }B"
+            f = f"%.{fig}f" % m
+            return f"{ f }{ j.upper() }{ '' if useb else 'i' }B"
     return f"{ size }B"
 
 
+formatinput = lambda x: [re.split("\s", i)[args.column - 1] for i in x]
+
 if args.input is None:
-    inputText = stdin.readlines()
+    size = sumsize(formatinput(stdin.readlines()))
 else:
     with open(args.input, "r") as f:
-        inputText = f.readlines()
+        size = sumsize(formatinput(f.readlines()))
 
-sin = [re.split("\s", i)[args.column - 1] for i in inputText]
-
-size = sumsize(sin)
-
-useB = args.useb
-figure = 2
 if args.figure is not None:
     figure = args.figure
+else:
+    figure = 2
 
-formattedSize = formatsize(size, F=figure, B=useB, U=args.unitless)
+formattedSize = formatsize(size, fig=figure, useb=args.useb, unitless=args.unitless)
 
 print(formattedSize)
