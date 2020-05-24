@@ -48,11 +48,14 @@ def sumsize(sizes):
     ps = re.compile(r"[0-9]+\.?[0-9]*")
 
     for i in sizes:
-        _factors = pf.findall(i)
-        factor = _factors[0].lower() if isinstance(_factors, list) else "B"
-
         _sizes = ps.findall(i)
-        size = float(_sizes[0]) if isinstance(_sizes, list) else 0.0
+        size = float(_sizes[0]) if isinstance(_sizes, list) and len(_sizes) else 0.0
+
+        if size == 0:
+            continue
+
+        _factors = pf.findall(i)
+        factor = _factors[0].lower() if isinstance(_factors, list) and len(_factors) else "B"
 
         m = 1
         c = 1024 if "i" in factor else 1000
