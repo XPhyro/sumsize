@@ -59,6 +59,7 @@ def sumsize(sizes):
         for k, w in enumerate(UNITS):
             if w in factor:
                 m = c ** (k + 1)
+                break
 
         s += size * m
 
