@@ -1,5 +1,8 @@
 # sumsize
-A command-line utility that sums the given sizes. It can read from both stdin and a file. To use it effectively, add it to your path so that you can execute it anywhere.
+A command-line utility that sums the given sizes. It can read from both stdin and files. To use it effectively, you can add it to your path:
+```
+ln -s dir_of_sumsize/main.py path_to_PATH/sumsize
+```
 
 Execute `sumsize -h` to get more information:
 ```
