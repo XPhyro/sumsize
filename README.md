@@ -4,6 +4,18 @@ A command-line utility that sums the given sizes. It can read from both stdin an
 ln -s dir_of_sumsize/main.py path_to_PATH/sumsize
 ```
 
+Examples:
+```
+[xphyro@archlinux ~]$ alias pacman-list="LC_ALL=C pacman -Qi | awk "/^Name/{name=\$3} /^Installed Size/{print \$4\$5, name}""
+[xphyro@archlinux ~]$ pacman-list | sumsize
+20.62GiB
+[xphyro@archlinux ~]$ pacman-list > sizes
+[xphyro@archlinux ~]$ sumsize -bf 3 sizes
+22.141GB
+[xphyro@archlinux ~]$ pacman-list | sumsize -df 4 sizes 
+41.2399GiB 
+```
+
 Execute `sumsize -h` to get more information:
 ```
 usage: sumsize [-h] [-b] [-u] [-f FIGURE] [-c COLUMN] [-d] [files [files ...]] 
