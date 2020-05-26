@@ -36,7 +36,10 @@ parser.add_argument(
     type=col,
     default=1,
 )
-parser.add_argument("-i", "--input", help="read from file instead of stdin")
+parser.add_argument(
+    "-d", "--double-input", help="use both stdin and file if present", action="store_true"
+)
+parser.add_argument("files", help="paths to files that contain the sizes. files have precedence over stdin unless -d option is given", nargs="*")
 
 args = parser.parse_args()
 
@@ -69,6 +72,11 @@ def sumsize(sizes):
     return s
 
 
+def addsize(f):
+    global size
+    size += sumsize(formatinput(f.readlines()))
+
+
 def formatsize(size, fig=2, useb=False, unitless=False):
     size = int(size)
     if unitless:
@@ -84,12 +92,16 @@ def formatsize(size, fig=2, useb=False, unitless=False):
 
 
 formatinput = lambda x: [re.split("\s", i)[args.column - 1] for i in x]
+size = 0
 
-if args.input is None:
-    size = sumsize(formatinput(stdin.readlines()))
-else:
-    with open(args.input, "r") as f:
-        size = sumsize(formatinput(f.readlines()))
+if not len(args.files) and stdin.isatty():
+    exit(0)
+
+for i in args.files:
+    with open(i, "r") as f:
+        addsize(f)
+if (not len(args.files) or args.double_input) and not stdin.isatty():
+    addsize(stdin)
 
 if args.figure is not None:
     figure = args.figure
