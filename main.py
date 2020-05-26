@@ -47,7 +47,7 @@ args = parser.parse_args()
 def sumsize(sizes):
     s = 0
 
-    pf = re.compile(r"[K|M|G|T|P]?i?B", re.IGNORECASE)
+    pf = re.compile(r"[k|M|G|T|P]?i?B", re.IGNORECASE)
     ps = re.compile(r"[0-9]+\.?[0-9]*")
 
     for i in sizes:
