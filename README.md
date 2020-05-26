@@ -3,8 +3,10 @@ A command-line utility that sums the given sizes. It can read from both stdin an
 
 Execute `sumsize -h` to get more information:
 ```
-usage: sumsize [-h] [-b] [-u] [-f FIGURE] [-c COLUMN] [-i INPUT] 
+usage: sumsize [-h] [-b] [-u] [-f FIGURE] [-c COLUMN] [-d] [files [files ...]] 
 Sum sizes. 
+positional arguments: 
+  files                 paths to files that contain the sizes. files have precedence over stdin unless -d option is given 
 optional arguments: 
   -h, --help            show this help message and exit 
   -b, --useb            print in B instead of iB 
@@ -13,6 +15,5 @@ optional arguments:
                         significant figure count after the dot (default 2) 
   -c COLUMN, --column COLUMN 
                         which column to consider as sizes (default 1) 
-  -i INPUT, --input INPUT 
-                        read from file instead of stdin 
+  -d, --double-input    use both stdin and file if present 
 ```
