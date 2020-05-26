@@ -103,10 +103,7 @@ for i in args.files:
 if (not len(args.files) or args.double_input) and not stdin.isatty():
     addsize(stdin)
 
-if args.figure is not None:
-    figure = args.figure
-else:
-    figure = 2
+figure = args.figure if args.figure is not None else 2
 
 formattedSize = formatsize(size, fig=figure, useb=args.useb, unitless=args.unitless)
 
