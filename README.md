@@ -14,6 +14,8 @@ Examples:
 22.141GB
 [xphyro@archlinux ~]$ pacman-list | sumsize -df 4 sizes 
 41.2399GiB 
+[xphyro@archlinux ~]$ pacman-list | awk '{print $2,$1}' | sumsize -c 2
+20.62GiB
 ```
 
 Execute `sumsize -h` to get more information:
