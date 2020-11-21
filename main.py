@@ -37,9 +37,16 @@ parser.add_argument(
     default=1,
 )
 parser.add_argument(
-    "-d", "--double-input", help="use both stdin and file if present", action="store_true"
+    "-d",
+    "--double-input",
+    help="use both stdin and file if present",
+    action="store_true",
 )
-parser.add_argument("files", help="paths to files that contain the sizes. files have precedence over stdin unless -d option is given", nargs="*")
+parser.add_argument(
+    "files",
+    help="paths to files that contain the sizes. files have precedence over stdin unless -d option is given",
+    nargs="*",
+)
 
 args = parser.parse_args()
 
@@ -58,7 +65,9 @@ def sumsize(sizes):
             continue
 
         _factors = pf.findall(i)
-        factor = _factors[0].lower() if isinstance(_factors, list) and len(_factors) else "B"
+        factor = (
+            _factors[0].lower() if isinstance(_factors, list) and len(_factors) else "B"
+        )
 
         m = 1
         c = 1024 if "i" in factor else 1000
