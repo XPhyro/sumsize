@@ -6,23 +6,23 @@ ln -s dir_of_sumsize/main.py path_to_PATH/sumsize
 
 Examples:
 ```
-[xphyro@archlinux ~]$ alias pacman-list="LC_ALL=C pacman -Qi | awk "/^Name/{name=\$3} /^Installed Size/{print \$4\$5, name}""
-[xphyro@archlinux ~]$ pacman-list | tail -n 5
+$ alias pacman-list='LC_ALL=C pacman -Qi | awk "/^Name/{name=\$3} /^Installed Size/{print \$4\$5, name}" | sort -h'
+$ pacman-list | tail -n 5
 396.52MiB texlive-core
 488.44MiB go
 499.03MiB wine
 516.18MiB linux-firmware
 4.04GiB cuda
-[xphyro@archlinux ~]$ pacman-list | sumsize
+$ pacman-list | sumsize
 20.62GiB
-[xphyro@archlinux ~]$ pacman-list | sumsize -u 
+$ pacman-list | sumsize -u 
 22140504940 
-[xphyro@archlinux ~]$ pacman-list > sizes
-[xphyro@archlinux ~]$ sumsize -bf 3 sizes
+$ pacman-list > sizes
+$ sumsize -bf 3 sizes
 22.141GB
-[xphyro@archlinux ~]$ pacman-list | sumsize -df 4 sizes 
+$ pacman-list | sumsize -df 4 sizes 
 41.2399GiB 
-[xphyro@archlinux ~]$ pacman-list | awk '{print $2,$1}' | sumsize -c 2
+$ pacman-list | awk '{print $2,$1}' | sumsize -c 2
 20.62GiB
 ```
 
