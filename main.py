@@ -39,7 +39,7 @@ parser.add_argument(
 parser.add_argument(
     "-d",
     "--double-input",
-    help="use both stdin and file if present",
+    help="use both stdin and files if present",
     action="store_true",
 )
 parser.add_argument(
